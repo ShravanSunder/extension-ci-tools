@@ -570,10 +570,10 @@ jobs:
           choco install ninja -y
       
       - name: Install CMake and add to PATH
-        shell: bash
+        shell: cmd
         run: |
           choco install cmake --version=3.31.0 --force -y
-          echo "/c/Program Files/CMake/bin" >> $GITHUB_PATH
+          echo "C:\Program Files\CMake\bin" >> %GITHUB_PATH%
 
       - name: Setup Ccache
         uses: hendrikmuhs/ccache-action@main
