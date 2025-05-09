@@ -572,8 +572,6 @@ jobs:
       - name: Install CMake
         run: |
           choco install cmake --version=3.31.0 --force -y
-          refreshenv
-        shell: powershell
 
       - name: Setup Ccache
         uses: hendrikmuhs/ccache-action@main
