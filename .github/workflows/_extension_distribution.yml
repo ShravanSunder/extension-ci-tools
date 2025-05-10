@@ -654,7 +654,9 @@ jobs:
           set CHOCO_BIN_PATH=C:\ProgramData\chocolatey\bin
           set PATH=%CHOCO_BIN_PATH%;%PATH%
           echo %PATH%
-          
+          cmake --version
+          where cmake
+
           if "%DUCKDB_PLATFORM_RTOOLS%" == "0" (
             call "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
             REM Rename link.exe to link-git.exe to avoid conflicts with git supplied linker.
