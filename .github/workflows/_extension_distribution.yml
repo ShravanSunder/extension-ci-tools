@@ -626,6 +626,12 @@ jobs:
         with:
           vcpkgGitCommitId: ${{ inputs.vcpkg_commit }}
           vcpkgGitURL: ${{ inputs.vcpkg_url }}
+      
+      - name: Verify CMake version before build
+        shell: cmd # Or cmd, just be consistent or verify in both if mixing
+        run: |
+          cmake --version
+          where cmake # On Windows, shows all locations of cmake.exe in PATH
 
       - name: Run configure
         shell: bash
