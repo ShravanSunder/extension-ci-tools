@@ -645,12 +645,27 @@ jobs:
           EXT_FLAGS: -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
         shell: cmd
         run: |
+          echo "Initial PATH:"
+          echo %PATH%
+          echo "Initial 'where cmake' (shows which cmake is found first):"
+          where cmake
+
+          REM 1. Install your desired CMake version
           choco install cmake --version=3.31.0 --force -y --installargs 'ADD_CMAKE_TO_PATH=System'
           
+          REM 2. IMPORTANT: Prepend the newly installed CMake's bin directory to the SESSION's PATH
+          REM This ensures it's found BEFORE the Rtools CMake for commands in THIS script block.
+          echo "Modifying current session PATH to prioritize C:\Program Files\CMake\bin"
+          set "PATH=C:\Program Files\CMake\bin;%PATH%"
+          
+          REM 3. (Optional but good practice) Also add it to GITHUB_PATH for subsequent *separate* steps
           echo C:\Program Files\CMake\bin>> %GITHUB_PATH%
           
-          echo "cmake version check after attempting GITHUB_PATH update:"
+          echo "PATH after modification:"
+          echo %PATH%
+          echo "'where cmake' after PATH modification (should now show new CMake first):"
           where cmake
+          echo "cmake --version after PATH modification (should be 3.31.0):"
           cmake --version
 
           if "%DUCKDB_PLATFORM_RTOOLS%" == "0" (
