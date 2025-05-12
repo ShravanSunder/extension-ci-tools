@@ -646,8 +646,11 @@ jobs:
         shell: cmd
         run: |
           choco install cmake --version=3.31.0 --force -y --installargs 'ADD_CMAKE_TO_PATH=System'
-          echo "cmake version"
-          where cmake # On Windows (cmd/powershell) or 'which cmake' (bash/msys2)
+          
+          echo C:\Program Files\CMake\bin>> %GITHUB_PATH%
+          
+          echo "cmake version check after attempting GITHUB_PATH update:"
+          where cmake
           cmake --version
 
           if "%DUCKDB_PLATFORM_RTOOLS%" == "0" (
