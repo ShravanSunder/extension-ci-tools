@@ -647,6 +647,12 @@ jobs:
         run: |
           choco install cmake --version=3.31.0 --force -y
           echo "C:\Program Files\CMake\bin" >> %GITHUB_PATH%
+          export PATH="/c/ProgramData/chocolatey/bin:$PATH"
+
+          # Verify which cmake is now found and its version
+          where cmake # On Windows (cmd/powershell) or 'which cmake' (bash/msys2)
+          cmake --version
+
 
           if "%DUCKDB_PLATFORM_RTOOLS%" == "0" (
             call "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
